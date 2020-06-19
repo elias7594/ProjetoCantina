@@ -27,7 +27,6 @@ public class ProdutoController {
 	
 	@GetMapping(path="/listarTodos")
 	public @ResponseBody Iterable<Produtos> ListarTodos() {
-	    
 	    return produtosRepository.findAll();
 	}
 	
