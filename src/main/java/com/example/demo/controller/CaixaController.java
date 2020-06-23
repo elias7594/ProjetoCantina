@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.models.Caixa;
 import com.example.demo.repository.CaixaRepository;
 
-
-
 @Controller
 @RequestMapping(path="/caixa", method = RequestMethod.GET )
 public class CaixaController {

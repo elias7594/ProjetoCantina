@@ -15,7 +15,7 @@ import com.example.demo.repository.FormaPagamentoRepository;
 @Controller 
 @RequestMapping(path="/formasPagamento", method = RequestMethod.GET ) 
 
-public class FormaPagamentController {
+public class FormaPagamentoController {
 	@Autowired
 	private FormaPagamentoRepository formaPagamentoRepository;
 	
