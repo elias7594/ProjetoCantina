@@ -7,18 +7,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "formasPagamento")
-public class FormasPagamento {
+@Table(name = "formaPagamento")
+public class FormaPagamento {
 	@Id
 	@GeneratedValue
 	private long id;
 	@Column(name = "nome")
 	private String nome;
 
-	public FormasPagamento() {
+	public FormaPagamento() {
 	}
 
-	public FormasPagamento(long id, String nome) {
+	public FormaPagamento(long id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;

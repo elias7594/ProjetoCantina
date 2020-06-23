@@ -4,18 +4,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Categorias {
+@Table(name = "categoria")
+public class Categoria {
 	@Id
 	@GeneratedValue
 	private long id;
 	@Column(name = "nome")	
 	private String nome;
-	public Categorias() {
+	public Categoria() {
 	}
 
-	public Categorias(long id, String nome) {
+	public Categoria(long id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;

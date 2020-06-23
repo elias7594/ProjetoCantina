@@ -8,25 +8,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.example.demo.models.Categorias;
-import com.example.demo.models.Produtos;
-import com.example.demo.repository.ProdutosRepository;
+import com.example.demo.models.Categoria;
+import com.example.demo.models.Produto;
+import com.example.demo.models.UnidadeMedida;
+import com.example.demo.repository.ProdutoRepository;
 
 @Controller
 @RequestMapping(path="/produtos", method = RequestMethod.GET ) 
 public class ProdutoController {
 	
-	private ProdutosRepository produtosRepository;
+	private ProdutoRepository produtosRepository;
 	
 	@PostMapping(value="/cadastrar") 
-	public @ResponseBody String cadastrar (@RequestParam String nome, Double preco, String descricao, Categorias categoria) {
-		Produtos produto = new Produtos(0,  categoria,  nome,  preco,  descricao);
+	public @ResponseBody String cadastrar (@RequestParam Categoria categoria, @RequestParam UnidadeMedida unidadeMedida ,@RequestParam String nome, @RequestParam Double preco, @RequestParam String descricao ) {
+		Produto produto = new Produto(0,  categoria, unidadeMedida,  nome,  preco,  descricao);
 		produtosRepository.save(produto);
 		return "Cadastrado";
 	}
 	
 	@GetMapping(path="/listarTodos")
-	public @ResponseBody Iterable<Produtos> ListarTodos() {
+	public @ResponseBody Iterable<Produto> ListarTodos() {
 	    return produtosRepository.findAll();
 	}
 	
@@ -36,8 +37,8 @@ public class ProdutoController {
 	}
 
 	@GetMapping(path="/busca")
-	public @ResponseBody Optional<Produtos> buscar(@RequestParam Integer id) {
-		Optional<Produtos> produto = produtosRepository.findById(id);
+	public @ResponseBody Optional<Produto> buscar(@RequestParam Integer id) {
+		Optional<Produto> produto = produtosRepository.findById(id);
 		return produto;
 	}
 	
@@ -48,8 +49,8 @@ public class ProdutoController {
 	}
 	
 	@PostMapping(value="/editar") 
-	public @ResponseBody String editar (@RequestParam Integer id,@RequestParam String nome,Double preco, String descricao, Categorias categoria) {
-		Produtos produto =  produtosRepository.findById(id).get();
+	public @ResponseBody String editar (@RequestParam Integer id,@RequestParam String nome,Double preco, String descricao, Categoria categoria) {
+		Produto produto =  produtosRepository.findById(id).get();
 		produto.setNome(nome);
 		produto.setPreco(preco);
 		produto.setDescricao(descricao);

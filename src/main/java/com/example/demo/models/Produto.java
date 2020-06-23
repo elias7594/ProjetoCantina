@@ -9,15 +9,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "produtos")
-public class Produtos {
+@Table(name = "produto")
+public class Produto {
 	@Id
 	@GeneratedValue
 	private long id;
 	@ManyToOne
-	@Column(name = "idCategoria")
 	@JoinColumn(name = "idCategoria", referencedColumnName = "id")
-	private Categorias categoria;
+	private Categoria categoria;
+	@ManyToOne
+	@JoinColumn(name = "idUnidadeMedida", referencedColumnName = "id")
+	private UnidadeMedida unidadeMedida;
 	@Column(name = "nome")
 	private String nome;
 	@Column(name = "preco")
@@ -25,17 +27,21 @@ public class Produtos {
 	@Column(name = "descricao")
 	private String descricao;
 
-	public Produtos() {
+	public Produto() {
 	}
 
-	public Produtos(long id, Categorias categoria, String nome, Double preco, String descricao) {
+	public Produto(long id, Categoria categoria, UnidadeMedida unidadeMedida, String nome, Double preco,
+			String descricao) {
 		super();
 		this.id = id;
 		this.categoria = categoria;
+		this.unidadeMedida = unidadeMedida;
 		this.nome = nome;
 		this.preco = preco;
 		this.descricao = descricao;
 	}
+
+
 
 	public long getId() {
 		return id;
@@ -69,11 +75,11 @@ public class Produtos {
 		this.descricao = descricao;
 	}
 
-	public Categorias getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(Categorias categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 

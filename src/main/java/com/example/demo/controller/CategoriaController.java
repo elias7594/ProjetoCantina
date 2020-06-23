@@ -10,24 +10,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.models.Categorias;
-import com.example.demo.repository.CategoriasRepository;
+import com.example.demo.models.Categoria;
+import com.example.demo.repository.CategoriaRepository;
 
 @Controller
 @RequestMapping(path="/categorias", method = RequestMethod.GET ) 
-public class CategoriasController {
+public class CategoriaController {
 	@Autowired
-	private CategoriasRepository categoriasRepository;
+	private CategoriaRepository categoriasRepository;
 	
 	@PostMapping(value="/cadastrar") 
 	public @ResponseBody String cadastrar(@RequestParam String nome) {
-		Categorias categoria = new Categorias(0,  nome);
+		Categoria categoria = new Categoria(0,  nome);
 		categoriasRepository.save(categoria);
 		return "Salvo";
 	}
 	
 	@PostMapping(value="/listarTodos") 
-	public @ResponseBody  Iterable<Categorias> listarTodos() {
+	public @ResponseBody  Iterable<Categoria> listarTodos() {
 		return categoriasRepository.findAll();
 	}
 	
@@ -37,8 +37,8 @@ public class CategoriasController {
 	}
 	
 	@GetMapping(path="/busca")
-	public @ResponseBody Optional<Categorias> buscar(@RequestParam Integer id) {
-		Optional<Categorias> categoria = categoriasRepository.findById(id);
+	public @ResponseBody Optional<Categoria> buscar(@RequestParam Integer id) {
+		Optional<Categoria> categoria = categoriasRepository.findById(id);
 		return categoria;
 	}
 	
@@ -50,7 +50,7 @@ public class CategoriasController {
 	
 	@GetMapping(path="/editar")
 	public @ResponseBody boolean editar(@RequestParam Integer id, @RequestParam String nome) {
-		Categorias categoria = categoriasRepository.findById(id).get();
+		Categoria categoria = categoriasRepository.findById(id).get();
 		categoria.setNome(nome);
 		categoriasRepository.save(categoria);
 		return true;

@@ -9,26 +9,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.example.demo.models.FormasPagamento;
-import com.example.demo.repository.FormasPagamentoRepository;
+import com.example.demo.models.FormaPagamento;
+import com.example.demo.repository.FormaPagamentoRepository;
 
 @Controller 
 @RequestMapping(path="/formasPagamento", method = RequestMethod.GET ) 
 
-public class FormasPagamentController {
+public class FormaPagamentController {
 	@Autowired
-	private FormasPagamentoRepository formaPagamentoRepository;
+	private FormaPagamentoRepository formaPagamentoRepository;
 	
 	@PostMapping(value="/cadastrar") 
 	public @ResponseBody String addNewUser (@RequestParam String nome) {
-		FormasPagamento forma = new FormasPagamento(0,nome);
+		FormaPagamento forma = new FormaPagamento(0,nome);
 
 		formaPagamentoRepository.save(forma);
 		return "Salvo";
 	}
 	
 	@PostMapping(value="/listarTodos") 
-	public @ResponseBody  Iterable<FormasPagamento> listarTodos() {
+	public @ResponseBody  Iterable<FormaPagamento> listarTodos() {
 		return formaPagamentoRepository.findAll();
 	}
 	
@@ -38,7 +38,7 @@ public class FormasPagamentController {
 	}
 	
 	@GetMapping(path="/busca")
-	public @ResponseBody Optional<FormasPagamento> buscar(@RequestParam Integer id) {
+	public @ResponseBody Optional<FormaPagamento> buscar(@RequestParam Integer id) {
 	    return formaPagamentoRepository.findById(id);
 	}
 	
@@ -50,7 +50,7 @@ public class FormasPagamentController {
 	
 	@GetMapping(path="/editar")
 	public @ResponseBody boolean editar(@RequestParam Integer id,@RequestParam String nome) {
-		FormasPagamento forma = formaPagamentoRepository.findById(id).get();
+		FormaPagamento forma = formaPagamentoRepository.findById(id).get();
 		forma.setNome(nome);
 		formaPagamentoRepository.save(forma);
 		return true;

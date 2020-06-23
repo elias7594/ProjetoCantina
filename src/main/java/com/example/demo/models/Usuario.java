@@ -4,9 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Usuarios {
+@Table(name = "usuario")
+public class Usuario {
 	@Id
 	@GeneratedValue
 	private long id;
@@ -25,10 +27,10 @@ public class Usuarios {
 	@Column(name = "creditoPrePago")
 	private Double creditoPrePago;
 
-	public Usuarios() {
+	public Usuario() {
 	}
 
-	public Usuarios(long id, String telefone, String email, String nome, Byte tipo, String cpf, String senha,
+	public Usuario(long id, String telefone, String email, String nome, Byte tipo, String cpf, String senha,
 			Double creditoPrePago) {
 		super();
 		this.id = id;

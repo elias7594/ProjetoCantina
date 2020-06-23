@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.example.demo.models.Usuarios;
+import com.example.demo.models.Usuario;
 import com.example.demo.repository.UsuarioRepository;
 
 @Controller 
@@ -20,13 +20,13 @@ public class UsuarioContoller {
 	
 	@PostMapping(value="/cadastrar") 
 	public @ResponseBody String cadastrar (@RequestParam String nome, @RequestParam String email, @RequestParam String telefone, @RequestParam String cpf, @RequestParam Byte tipo, @RequestParam String senha) {
-	    Usuarios n = new Usuarios( 0, telefone,  email,  nome,  tipo,  cpf,  senha,(double) 0);
+	    Usuario n = new Usuario( 0, telefone,  email,  nome,  tipo,  cpf,  senha,(double) 0);
 	    usuarioRepository.save(n);
 	    return "Saved";
 	}
 	
 	@GetMapping(path="/listarTodos")
-	public @ResponseBody Iterable<Usuarios> ListarTodos() {
+	public @ResponseBody Iterable<Usuario> ListarTodos() {
 	    // This returns a JSON or XML with the users
 	    return usuarioRepository.findAll();
 	}
@@ -37,7 +37,7 @@ public class UsuarioContoller {
 	}
 	
 	@GetMapping(path="/busca")
-	public @ResponseBody Optional<Usuarios> buscar(@RequestParam Integer id) {
+	public @ResponseBody Optional<Usuario> buscar(@RequestParam Integer id) {
 	    return usuarioRepository.findById(id);
 	}
 	
@@ -49,7 +49,7 @@ public class UsuarioContoller {
 	
 	@PostMapping(value="/editar") 
 	public @ResponseBody String editar (@RequestParam Integer id,@RequestParam String nome, @RequestParam String email, @RequestParam String telephone, @RequestParam String cpf, @RequestParam Byte tipo, @RequestParam String senha) {
-		Usuarios usuario =  usuarioRepository.findById(id).get();
+		Usuario usuario =  usuarioRepository.findById(id).get();
 		usuario.setNome(nome);
 		usuario.setEmail(email);
 		usuario.setTelefone(telephone);
