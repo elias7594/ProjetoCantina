@@ -9,26 +9,31 @@ import javax.persistence.Id;
 public class UnidadeMedida {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	private String nome;
-	public UnidadeMedida() {
-	}
-	public UnidadeMedida(long id, String nome) {
+	private Integer id;
+	private String sigla;
+	
+	public UnidadeMedida() {}
+	public UnidadeMedida(Integer id, String sigla) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.sigla = sigla;
 	}
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(long id) {
-		this.id = id;
+	
+	public String getSigla() {
+		return sigla;
 	}
-	public String getNome() {
-		return nome;
+	public void setId(Integer id) {
+		if (id != null) {
+			this.id = id;
+		}
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setSigla(String sigla) {
+		if (sigla != null) {
+			this.sigla = sigla;
+		}
 	}
 	
 }

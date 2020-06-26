@@ -1,5 +1,7 @@
 package com.example.demo.models;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,16 +14,16 @@ public class Caixa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	
-	private int id;
+	private Integer id;
 	@Column(name = "valorAbertura")
-	private double valorAbertura;
+	private Double valorAbertura;
 	@Column(name = "valorFechamento")
-	private double valorFechamento;
+	private Double valorFechamento;
 	@Column(name = "data")
-	private String data;
+	private Date data;
 	@Column(name = "status")
-	private int status;
-	public Caixa(int id, double valorAbertura, double valorFechamento, String data, int status) {
+	private Integer status;
+	public Caixa(Integer id, Double valorAbertura, Double valorFechamento, Date data, Integer status) {
 		super();
 		this.id = id;
 		this.valorAbertura = valorAbertura;
@@ -40,40 +42,50 @@ public class Caixa {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(Integer id) {
+		if (id != null) {
+			this.id = id;
+		}
 	}
 
-	public double getValorAbertura() {
+	public Double getValorAbertura() {
 		return valorAbertura;
 	}
 
-	public void setValorAbertura(double valorAbertura) {
-		this.valorAbertura = valorAbertura;
+	public void setValorAbertura(Double valorAbertura) {
+		if (valorAbertura != null) {
+			this.valorAbertura = valorAbertura;
+		}
 	}
 
-	public double getValorFechamento() {
+	public Double getValorFechamento() {
 		return valorFechamento;
 	}
 
-	public void setValorFechamento(double valorFechamento) {
-		this.valorFechamento = valorFechamento;
+	public void setValorFechamento(Double valorFechamento) {
+		if (valorFechamento != null) {
+			this.valorFechamento = valorFechamento;
+		}
 	}
 
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(String data2) {
-		this.data = data2;
+	public void setData(Date data) {
+		if (data != null) {
+			this.data = data;
+		}
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setStatus(Integer status) {
+		if (status != null) {
+			this.status = status;
+		}
 	}
 
 }

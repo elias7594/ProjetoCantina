@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import java.util.Optional;
+import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,13 +19,14 @@ import com.example.demo.repository.PagamentoRepository;
 @Controller
 @RequestMapping(path="/pagamento", method = RequestMethod.GET ) 
 public class PagamentoController {
+	@Autowired
 	private PagamentoRepository pagamentoRepository;
 	
 	@PostMapping(value="/cadastrar") 
 	public @ResponseBody String cadastrar(@RequestParam Double valor) {
 		Pagamento pagamento = new Pagamento(0,  valor);
 		pagamentoRepository.save(pagamento);
-		return "Salvo";
+		return "Cadastrado com sucesso";
 	}
 	
 	@PostMapping(value="/listarTodos") 
@@ -43,13 +46,17 @@ public class PagamentoController {
 	@GetMapping(path="/deletar")
 	public @ResponseBody String deletar(@RequestParam Integer id) {
 		pagamentoRepository.deleteById(id);
-	    return "Deletado";
+	    return "Deletado com sucesso";
 	}
 	@GetMapping(path="/editar")
-	public @ResponseBody boolean editar(@RequestParam Integer id, @RequestParam Double valor) {
-		Pagamento pagamento = pagamentoRepository.findById(id).get();
-		pagamento.setValor(valor);
-		pagamentoRepository.save(pagamento);
-		return true;
+	public @ResponseBody String editar (@RequestParam Integer id, Pagamento pagamento) {
+		pagamentoRepository.findById(id)
+				.map( (Function<? super Pagamento, ? extends Pagamento>) Record->{
+					Record.setValor(pagamento.getValor());
+					pagamentoRepository.save(Record);
+					return Record;
+				});
+		
+	    return "Editado com sucesso";
 	}
 }

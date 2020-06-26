@@ -9,27 +9,32 @@ import javax.persistence.Id;
 public class Pagamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-
+	private Integer id;
 	private Double valor;
 	public Pagamento() {}
 	
-	public Pagamento(long id, Double valor) {
+	public Pagamento(Integer id, Double valor) {
 		super();
 		this.id = id;
 		this.valor = valor;
 	}
-	public long getId() {
+	public Integer getId() {
 		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
 	}
 	public Double getValor() {
 		return valor;
 	}
+	public void setId(Integer id) {
+		if (id != null) {
+			this.id = id;
+		}
+		
+	}
 	public void setValor(Double valor) {
-		this.valor = valor;
+		if (valor != null) {
+			this.valor = valor;
+		}
+		
 	}
 	
 }

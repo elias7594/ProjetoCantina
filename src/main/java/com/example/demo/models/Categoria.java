@@ -12,23 +12,23 @@ import javax.persistence.Id;
 public class Categoria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Integer id;
 	@Column(name = "nome")	
 	private String nome;
 	public Categoria() {
 	}
 
-	public Categoria(long id, String nome) {
+	public Categoria(Integer id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

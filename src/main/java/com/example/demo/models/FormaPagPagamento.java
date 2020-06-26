@@ -31,19 +31,25 @@ public class FormaPagPagamento {
 		return id;
 	}
 	public void setId(Integer id) {
-		this.id = id;
+		if (id != null) {
+			this.id = id;
+		}
 	}
 	public FormaPagamento getFormaPagamento() {
 		return formaPagamento;
 	}
 	public void setFormaPagamento(FormaPagamento formaPagamento) {
-		this.formaPagamento = formaPagamento;
+		if (formaPagamento != null) {
+			this.formaPagamento = formaPagamento;
+		}
 	}
 	public Pagamento getPagamento() {
 		return pagamento;
 	}
 	public void setPagamento(Pagamento pagamento) {
-		this.pagamento = pagamento;
+		if (pagamento != null) {
+			this.pagamento = pagamento;
+		}
 	}
 	
 }

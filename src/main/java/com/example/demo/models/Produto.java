@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Integer id;
 	@ManyToOne
 	@JoinColumn(name = "idCategoria", referencedColumnName = "id")
 	private Categoria categoria;
@@ -27,10 +27,9 @@ public class Produto {
 	@Column(name = "descricao")
 	private String descricao;
 
-	public Produto() {
-	}
+	public Produto() {}
 
-	public Produto(long id, Categoria categoria, UnidadeMedida unidadeMedida, String nome, Double preco,
+	public Produto(Integer id, Categoria categoria, UnidadeMedida unidadeMedida, String nome, Double preco,
 			String descricao) {
 		super();
 		this.id = id;
@@ -43,12 +42,15 @@ public class Produto {
 
 
 
-	public long getId() {
+	public Integer getId() {
+		
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setId(Integer id) {
+		if (id != null) {
+			this.id = id;
+		}
 	}
 
 	public String getNome() {
@@ -56,7 +58,9 @@ public class Produto {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		if (nome != null) {
+			this.nome = nome;
+		}
 	}
 
 	public Double getPreco() {
@@ -64,7 +68,9 @@ public class Produto {
 	}
 
 	public void setPreco(Double preco) {
-		this.preco = preco;
+		if (preco != null) {
+			this.preco = preco;
+		}
 	}
 
 	public String getDescricao() {
@@ -72,7 +78,9 @@ public class Produto {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		if (descricao != null) {
+			this.descricao = descricao;
+		}
 	}
 
 	public Categoria getCategoria() {
@@ -80,7 +88,19 @@ public class Produto {
 	}
 
 	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+		if (categoria != null) {
+			this.categoria = categoria;
+		}
+	}
+
+	public UnidadeMedida getUnidadeMedida() {
+		return unidadeMedida;
+	}
+
+	public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
+		if (unidadeMedida != null) {
+			this.unidadeMedida = unidadeMedida;
+		}
 	}
 
 }

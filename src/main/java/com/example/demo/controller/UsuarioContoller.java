@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import java.util.Optional;
+import java.util.function.Function;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +22,9 @@ public class UsuarioContoller {
 	
 	@PostMapping(value="/cadastrar") 
 	public @ResponseBody String cadastrar (@RequestParam String nome, @RequestParam String email, @RequestParam String telefone, @RequestParam String cpf, @RequestParam Byte tipo, @RequestParam String senha) {
-	    Usuario n = new Usuario( 0, telefone,  email,  nome,  tipo,  cpf,  senha,(double) 0);
-	    usuarioRepository.save(n);
-	    return "Saved";
+	    Usuario usuario = new Usuario( 0, telefone,  email,  nome,  tipo,  cpf,  senha,(double) 0);
+	    usuarioRepository.save(usuario);
+	    return "Cadastrado com sucesso";
 	}
 	
 	@GetMapping(path="/listarTodos")
@@ -48,15 +50,19 @@ public class UsuarioContoller {
 	}
 	
 	@PostMapping(value="/editar") 
-	public @ResponseBody String editar (@RequestParam Integer id,@RequestParam String nome, @RequestParam String email, @RequestParam String telephone, @RequestParam String cpf, @RequestParam Byte tipo, @RequestParam String senha) {
-		Usuario usuario =  usuarioRepository.findById(id).get();
-		usuario.setNome(nome);
-		usuario.setEmail(email);
-		usuario.setTelefone(telephone);
-		usuario.setCpf(cpf);
-		usuario.setTipo(tipo);
-		usuario.setSenha(senha);
-	    usuarioRepository.save(usuario);
-	    return "Salvo";
+	public @ResponseBody String editar (@RequestParam Integer id, Usuario user) {
+		usuarioRepository.findById(id)
+				.map( (Function<? super Usuario, ? extends Usuario>) Record->{
+					Record.setCpf(user.getCpf());
+					Record.setNome(user.getNome());
+					Record.setEmail(user.getEmail());
+					Record.setSenha(user.getSenha());
+					Record.setTelefone(user.getTelefone());
+					Record.setTipo(user.getTipo());
+					usuarioRepository.save(Record);
+					return Record;
+				});
+		
+	    return "Editado com sucesso";
 	}
 }

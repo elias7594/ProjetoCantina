@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +26,8 @@ public class FormaPagPagamentoController {
 	@PostMapping(value="/cadastrar") 
 	public @ResponseBody String addNewUser (@RequestParam Pagamento idPagamento,@RequestParam  FormaPagamento idformaPagamento ) {
 		FormaPagPagamento formaPagPagamento = new FormaPagPagamento(0,idformaPagamento,idPagamento);
-
 		formaPagPagamentoRepository.save(formaPagPagamento);
-		return "Salvo";
+		return "Cadastrado com sucesso";
 	}
 	
 	@PostMapping(value="/listarTodos") 
@@ -48,17 +48,20 @@ public class FormaPagPagamentoController {
 	@GetMapping(path="/deletar")
 	public @ResponseBody String deletar(@RequestParam Integer id) {
 		formaPagPagamentoRepository.deleteById(id);
-	    return "Deletado";
+	    return "Deletado com sucesso";
 	}
 	
 	@GetMapping(path="/editar")
-	public @ResponseBody boolean editar(@RequestParam Integer id,@RequestParam Pagamento idPagamento,@RequestParam  FormaPagamento idformaPagamento) {
-		FormaPagPagamento formaPagPagamento = formaPagPagamentoRepository.findById(id).get();
-		formaPagPagamento.setFormaPagamento(idformaPagamento);
-		formaPagPagamento.setPagamento(idPagamento);
+	public @ResponseBody String editar (@RequestParam Integer id, FormaPagPagamento formaPagPagamento) {
+		formaPagPagamentoRepository.findById(id)
+				.map( (Function<? super FormaPagPagamento, ? extends FormaPagPagamento>) Record->{
+					Record.setFormaPagamento(formaPagPagamento.getFormaPagamento());
+					Record.setPagamento(formaPagPagamento.getPagamento());
+					formaPagPagamentoRepository.save(Record);
+					return Record;
+				});
 		
-		formaPagPagamentoRepository.save(formaPagPagamento);
-		return true;
+	    return "Editado com sucesso";
 	}
 	
 	

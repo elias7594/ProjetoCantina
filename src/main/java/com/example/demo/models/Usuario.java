@@ -12,7 +12,7 @@ import javax.persistence.Id;
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Integer id;
 	@Column(name = "telefone")
 	private String telefone;
 	@Column(name = "email")
@@ -31,7 +31,7 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(long id, String telefone, String email, String nome, Byte tipo, String cpf, String senha,
+	public Usuario(Integer id, String telefone, String email, String nome, Byte tipo, String cpf, String senha,
 			Double creditoPrePago) {
 		super();
 		this.id = id;
@@ -44,20 +44,27 @@ public class Usuario {
 		this.creditoPrePago = creditoPrePago;
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setId(Integer id) {
+		if (id != null) {
+			this.id = id;
+		}
+		
 	}
 
 	public String getNome() {
+		
 		return nome;
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		if (nome != null) {
+			this.nome = nome;
+		}
+		
 	}
 
 	public String getEmail() {
@@ -65,23 +72,33 @@ public class Usuario {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		if (email != null) {
+			this.email = email;
+		}
 	}
 
 	public String getTelefone() {
+		
 		return telefone;
 	}
 
-	public void setTelefone(String telephone) {
-		this.telefone = telephone;
+	public void setTelefone(String telefone) {
+		if (telefone != null) {
+			this.telefone = telefone;
+		}
+		
 	}
 
 	public String getCpf() {
+		
 		return cpf;
 	}
 
 	public void setCpf(String cpf) {
-		this.cpf = cpf;
+		if (cpf != null) {
+			this.cpf = cpf;
+		}
+		
 	}
 
 	public Byte getTipo() {
@@ -89,7 +106,10 @@ public class Usuario {
 	}
 
 	public void setTipo(Byte tipo) {
-		this.tipo = tipo;
+		if (tipo != null) {
+			this.tipo = tipo;
+		}
+		
 	}
 
 	public String getSenha() {
@@ -97,7 +117,10 @@ public class Usuario {
 	}
 
 	public void setSenha(String senha) {
-		this.senha = senha;
+		if (senha != null) {
+			this.senha = senha;
+		}
+		
 	}
 
 	public Double getCreditoPrePago() {
@@ -105,7 +128,17 @@ public class Usuario {
 	}
 
 	public void setCreditoPrePago(Double creditoPrePago) {
-		this.creditoPrePago = creditoPrePago;
+		if (creditoPrePago != null) {
+			this.creditoPrePago = creditoPrePago;
+		}
+		
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", telefone=" + telefone + ", email=" + email + ", nome=" + nome + ", tipo=" + tipo
+				+ ", cpf=" + cpf + ", senha=" + senha + ", creditoPrePago=" + creditoPrePago + "]";
+	}
+	
 
 }

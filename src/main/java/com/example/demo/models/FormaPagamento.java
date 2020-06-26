@@ -10,25 +10,27 @@ import javax.persistence.Id;
 public class FormaPagamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Integer id;
 	@Column(name = "nome")
 	private String nome;
 
 	public FormaPagamento() {
 	}
 
-	public FormaPagamento(long id, String nome) {
+	public FormaPagamento(Integer id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setId(Integer id) {
+		if (id != null) {
+			this.id = id;
+		}
 	}
 
 	public String getNome() {
@@ -36,7 +38,9 @@ public class FormaPagamento {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		if (nome != null) {
+			this.nome = nome;
+		}
 	}
 
 }

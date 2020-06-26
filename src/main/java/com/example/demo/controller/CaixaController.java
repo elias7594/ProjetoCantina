@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.Optional;
+import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,17 +14,17 @@ import com.example.demo.models.Caixa;
 import com.example.demo.repository.CaixaRepository;
 
 @Controller
+
 @RequestMapping(path="/caixa", method = RequestMethod.GET )
 public class CaixaController {
 	@Autowired
 	private CaixaRepository caixaRepository;
 	
 	@PostMapping(value="/cadastrar") 
-	public @ResponseBody String cadastrar(@RequestParam double valorAbertura,@RequestParam double valorFechamento, @RequestParam String data,int status) {
-		Caixa caixa = new Caixa(0,valorAbertura,valorFechamento,data,status);
-		
-		caixaRepository.save(caixa);
-		return "Cadastrar";
+	public @ResponseBody String cadastrar(Caixa caixa) {
+		Caixa caixaC = new Caixa(0,caixa.getValorAbertura(),0.0,caixa.getData(),1);
+		caixaRepository.save(caixaC);
+		return "Cadastrado com sucesso";
 	}
 	
 	@PostMapping(value="/listarTodos") 
@@ -45,17 +46,22 @@ public class CaixaController {
 	@GetMapping(path="/deletar")
 	public @ResponseBody String deletar(@RequestParam int id) {
 		caixaRepository.deleteById(id);
-	    return "Deletado";
+	    return "Deletado com sucesso";
 	}
 	
 	@PostMapping(value="/editar") 
-	public @ResponseBody String editar (@RequestParam int id,@RequestParam double valorAbertura,@RequestParam double valorFechamento, @RequestParam String data) {
-		Caixa caixa =  caixaRepository.findById(id).get();
-		caixa.setData(data);
-		caixa.setValorAbertura(valorAbertura);
-		caixa.setValorFechamento(valorFechamento);
-		caixaRepository.save(caixa);
-	    return "Editado";
+	public @ResponseBody String editar (@RequestParam Integer id, Caixa caixa) {
+		caixaRepository.findById(id)
+				.map( (Function<? super Caixa, ? extends Caixa>) Record->{
+					Record.setValorAbertura(caixa.getValorAbertura());
+					Record.setValorFechamento(caixa.getValorFechamento());
+					Record.setData(caixa.getData());
+					Record.setStatus(caixa.getStatus());
+					caixaRepository.save(Record);
+					return Record;
+				});
+		
+	    return "Editado com sucesso";
 	}
 	
 	@PostMapping(value="/abrirCaixaFechar") 

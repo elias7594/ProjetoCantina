@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import java.util.Optional;
+import java.util.function.Function;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,25 +12,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.models.FormaPagamento;
+
 import com.example.demo.repository.FormaPagamentoRepository;
 
 @Controller 
-@RequestMapping(path="/formasPagamento", method = RequestMethod.GET ) 
+@RequestMapping(path="/formaPagamento", method = RequestMethod.GET ) 
 
 public class FormaPagamentoController {
 	@Autowired
 	private FormaPagamentoRepository formaPagamentoRepository;
 	
 	@PostMapping(value="/cadastrar") 
-	public @ResponseBody String addNewUser (@RequestParam String nome) {
+	public @ResponseBody String cadastrar (@RequestParam String nome) {
 		FormaPagamento forma = new FormaPagamento(0,nome);
-
 		formaPagamentoRepository.save(forma);
-		return "Salvo";
+		return "Cadastrado com sucesso";
 	}
 	
 	@PostMapping(value="/listarTodos") 
-	public @ResponseBody  Iterable<FormaPagamento> listarTodos() {
+	public @ResponseBody Iterable<FormaPagamento> listarTodos() {
 		return formaPagamentoRepository.findAll();
 	}
 	
@@ -49,11 +51,15 @@ public class FormaPagamentoController {
 	}
 	
 	@GetMapping(path="/editar")
-	public @ResponseBody boolean editar(@RequestParam Integer id,@RequestParam String nome) {
-		FormaPagamento forma = formaPagamentoRepository.findById(id).get();
-		forma.setNome(nome);
-		formaPagamentoRepository.save(forma);
-		return true;
+	public @ResponseBody String editar (@RequestParam Integer id, FormaPagamento formaPagamento) {
+		formaPagamentoRepository.findById(id)
+				.map( (Function<? super FormaPagamento, ? extends FormaPagamento>) Record->{
+					Record.setNome(formaPagamento.getNome());
+					formaPagamentoRepository.save(Record);
+					return Record;
+				});
+		
+	    return "Editado com sucesso";
 	}
 	
 }
