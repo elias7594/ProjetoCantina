@@ -13,11 +13,6 @@ import javax.persistence.Id;
 public class Caixa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-
-
-
-	
-	
 	private Integer id;
 	@Column(name = "valorAbertura")
 	private Double valorAbertura;
@@ -27,6 +22,7 @@ public class Caixa {
 	private Date data;
 	@Column(name = "status")
 	private Integer status;
+	
 	public Caixa(Integer id, Double valorAbertura, Double valorFechamento, Date data, Integer status) {
 		super();
 		this.id = id;
@@ -91,5 +87,5 @@ public class Caixa {
 			this.status = status;
 		}
 	}
-
+	
 }
