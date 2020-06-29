@@ -20,12 +20,6 @@ public class CaixaController {
 	@Autowired
 	private CaixaRepository caixaRepository;
 	
-	@PostMapping(value="/cadastrar") 
-	public @ResponseBody String cadastrar(Caixa caixa) {
-		Caixa caixaC = new Caixa(0,caixa.getValorAbertura(),0.0,caixa.getData(),1);
-		caixaRepository.save(caixaC);
-		return "Cadastrado com sucesso";
-	}
 	
 	@PostMapping(value="/listarTodos") 
 	public @ResponseBody  Iterable<Caixa> listarTodos() {
