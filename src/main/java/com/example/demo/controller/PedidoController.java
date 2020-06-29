@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
-import java.time.LocalDate;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.Optional;
-
+import java.util.function.Function;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +20,14 @@ import com.example.demo.repository.PedidoRopository;
 @Controller
 @RequestMapping(path="/pedido", method = RequestMethod.GET ) 
 public class PedidoController {
+	@Autowired
 	private PedidoRopository pedidoRopository ;
 	@GetMapping(path="/cadastrar")
-	public @ResponseBody String cadastrar (@RequestParam  Usuario idUsuario,@RequestParam Pagamento idPagamento,@RequestParam int status,@RequestParam LocalDate hora,@RequestParam LocalDate data,
+	public @ResponseBody String cadastrar (@RequestParam  Usuario idUsuario,@RequestParam Pagamento idPagamento,@RequestParam int status,@RequestParam Time hora,@RequestParam Date data,
 			@RequestParam Integer lugar) {
 		Pedido produto = new Pedido(0,idUsuario,idPagamento,status,hora,data,lugar);
 		pedidoRopository.save(produto);
-		return "Cadastrado";
+		return "Cadastrado com sucesso";
 	}
 	
 	@GetMapping(path="/listarTodos")
@@ -46,19 +49,23 @@ public class PedidoController {
 	@GetMapping(path="/deletar")
 	public @ResponseBody String deletar(@RequestParam Integer id) {
 		pedidoRopository.deleteById(id);
-	    return "Deletado";
+	    return "Deletado com sucesso";
 	}
 	
 	@PostMapping(value="/editar") 
-	public @ResponseBody String editar (@RequestParam Integer id,@RequestParam  Usuario idUsuario,@RequestParam Pagamento idPagamento,@RequestParam int status,@RequestParam LocalDate hora,@RequestParam LocalDate data,
-			@RequestParam Integer lugar) {
-		Pedido pedido =  pedidoRopository.findById(id).get();
-		pedido.setData(data);
-		pedido.setHora(hora);
-		pedido.setIdPagamento(idPagamento);
-		pedido.setIdUsuario(idUsuario);
-		pedido.setLugar(lugar);
-		pedido.setStatus(status);
-	    return "Editado";
+	public @ResponseBody String editar (@RequestParam Integer id, Pedido pedido) {
+		pedidoRopository.findById(id)
+				.map( (Function<? super Pedido, ? extends Pedido>) Record->{
+					Record.setIdPagamento(pedido.getIdPagamento());
+					Record.setIdUsuario(pedido.getIdUsuario());
+					Record.setStatus(pedido.getStatus());
+					Record.setHora(pedido.getHora());
+					Record.setData(pedido.getData());
+					Record.setLugar(pedido.getLugar());
+					pedidoRopository.save(Record);
+					return Record;
+				});
+		
+	    return "Editado com sucesso";
 	}
 }

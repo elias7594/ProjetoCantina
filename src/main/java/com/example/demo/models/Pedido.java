@@ -2,7 +2,8 @@ package com.example.demo.models;
 
 
 
-import java.time.LocalDate;
+import java.sql.Date;
+import java.sql.Time;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,15 +23,13 @@ public class Pedido {
 	@JoinColumn(name = "idPagamento", referencedColumnName = "id")
 	private Pagamento idPagamento;
 	private Integer status;
-	@DateTimeFormat(pattern = "HH:mm")
-	private LocalDate hora;
+	private Time hora;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate data;
+	private Date data;
 	private Integer lugar;
-	
 	public Pedido() {}
 	
-	public Pedido(Integer id, Usuario idUsuario, Pagamento idPagamento, Integer status, LocalDate hora, LocalDate data,
+	public Pedido(Integer id, Usuario idUsuario, Pagamento idPagamento, Integer status, Time hora, Date data,
 			Integer lugar) {
 		super();
 		this.id = id;
@@ -73,18 +72,18 @@ public class Pedido {
 			this.status = status;
 		}
 	}
-	public LocalDate getHora() {
+	public Time getHora() {
 		return hora;
 	}
-	public void setHora(LocalDate hora) {
+	public void setHora(Time hora) {
 		if (idUsuario != null) {
 			this.hora = hora;
 		}
 	}
-	public LocalDate getData() {
+	public Date getData() {
 		return data;
 	}
-	public void setData(LocalDate data) {
+	public void setData(Date data) {
 		if (data != null) {
 			this.data = data;
 		}

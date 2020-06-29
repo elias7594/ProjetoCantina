@@ -3,8 +3,9 @@ package com.example.demo.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.models.Pagamento;
+import com.example.demo.models.PedidoProduto;
+
 @Repository
-public interface PagamentoRepository extends CrudRepository<Pagamento, Integer>{
+public interface PedidoProdutoRepository extends CrudRepository<PedidoProduto, Integer>{
 
 }

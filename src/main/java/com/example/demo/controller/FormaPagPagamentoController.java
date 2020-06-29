@@ -24,7 +24,7 @@ public class FormaPagPagamentoController {
 	@Autowired
 	FormaPagPagamentoRepository formaPagPagamentoRepository;
 	@PostMapping(value="/cadastrar") 
-	public @ResponseBody String addNewUser (@RequestParam Pagamento idPagamento,@RequestParam  FormaPagamento idformaPagamento ) {
+	public @ResponseBody String cadastrar (@RequestParam Pagamento idPagamento,@RequestParam  FormaPagamento idformaPagamento ) {
 		FormaPagPagamento formaPagPagamento = new FormaPagPagamento(0,idformaPagamento,idPagamento);
 		formaPagPagamentoRepository.save(formaPagPagamento);
 		return "Cadastrado com sucesso";
