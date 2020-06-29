@@ -13,6 +13,10 @@ import javax.persistence.Id;
 public class Caixa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+
+
+
+	
 	
 	private Integer id;
 	@Column(name = "valorAbertura")
