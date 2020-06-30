@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.example.demo.models.Caixa;
 import com.example.demo.models.ItemCaixa;
-import com.example.demo.models.Pedido;
-
 import com.example.demo.repository.ItemCaixaRepository;
 
 @Controller 
@@ -23,8 +20,7 @@ public class ItemCaixaController {
 	@Autowired
 	private ItemCaixaRepository itemCaixaRepository;
 	@PostMapping(value="/cadastrar") 
-	public @ResponseBody String cadastrar (@RequestParam Caixa idCaixa ,@RequestParam  Pedido idPedido,@RequestParam  Integer tipoOper,@RequestParam  Double valor,@RequestParam  String descricao) {
-		ItemCaixa itemCaixa = new ItemCaixa(0,  idPedido, idCaixa, tipoOper, valor, descricao);
+	public @ResponseBody String cadastrar (ItemCaixa itemCaixa ) {
 		itemCaixaRepository.save(itemCaixa);
 		return "Cadastrado com sucesso";
 	}

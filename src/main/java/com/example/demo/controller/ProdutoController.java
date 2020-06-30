@@ -23,8 +23,7 @@ public class ProdutoController {
 	private ProdutoRepository produtoRepository;
 	
 	@PostMapping(value="/cadastrar") 
-	public @ResponseBody String cadastrar (@RequestParam Categoria categoria, @RequestParam UnidadeMedida unidadeMedida ,@RequestParam String nome, @RequestParam Double preco, @RequestParam String descricao ) {
-		Produto produto = new Produto(0,  categoria, unidadeMedida,  nome,  preco,  descricao);
+	public @ResponseBody String cadastrar (Produto produto ) {
 		produtoRepository.save(produto);
 		return "Cadastrado";
 	}

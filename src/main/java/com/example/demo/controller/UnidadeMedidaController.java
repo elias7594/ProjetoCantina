@@ -22,8 +22,7 @@ public class UnidadeMedidaController<U> {
 	
 	
 	@PostMapping(value="/cadastrar") 
-	public @ResponseBody String cadastrar (@RequestParam String sigla ) {
-		UnidadeMedida unidadeMedida = new UnidadeMedida(0,  sigla);
+	public @ResponseBody String cadastrar (UnidadeMedida unidadeMedida ) {
 		unidadeMedidaRepository.save(unidadeMedida);
 		return "Cadastrado";
 	}

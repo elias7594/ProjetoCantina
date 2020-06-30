@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.example.demo.models.Usuario;
 import com.example.demo.repository.UsuarioRepository;
 
@@ -21,15 +22,13 @@ public class UsuarioContoller {
 	private UsuarioRepository usuarioRepository;
 	
 	@PostMapping(value="/cadastrar") 
-	public @ResponseBody String cadastrar (@RequestParam String nome, @RequestParam String email, @RequestParam String telefone, @RequestParam String cpf, @RequestParam Byte tipo, @RequestParam String senha) {
-	    Usuario usuario = new Usuario( 0, telefone,  email,  nome,  tipo,  cpf,  senha,(double) 0);
+	public @ResponseBody String cadastrar (Usuario usuario) {
 	    usuarioRepository.save(usuario);
 	    return "Cadastrado com sucesso";
 	}
 	
 	@GetMapping(path="/listarTodos")
 	public @ResponseBody Iterable<Usuario> ListarTodos() {
-	    // This returns a JSON or XML with the users
 	    return usuarioRepository.findAll();
 	}
 	
@@ -65,4 +64,5 @@ public class UsuarioContoller {
 		
 	    return "Editado com sucesso";
 	}
+	
 }

@@ -4,9 +4,13 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.example.demo.enums.StatusCaixa;
 
 @Entity
 
@@ -21,9 +25,10 @@ public class Caixa {
 	@Column(name = "data")
 	private Date data;
 	@Column(name = "status")
-	private Integer status;
+	@Enumerated(value = EnumType.STRING)
+	private StatusCaixa status;
 	
-	public Caixa(Integer id, Double valorAbertura, Double valorFechamento, Date data, Integer status) {
+	public Caixa(Integer id, Double valorAbertura, Double valorFechamento, Date data, StatusCaixa status) {
 		super();
 		this.id = id;
 		this.valorAbertura = valorAbertura;
@@ -78,11 +83,11 @@ public class Caixa {
 		}
 	}
 
-	public Integer getStatus() {
+	public StatusCaixa getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(StatusCaixa status) {
 		if (status != null) {
 			this.status = status;
 		}

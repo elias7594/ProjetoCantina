@@ -11,11 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
 import com.example.demo.models.FormaPagPagamento;
-import com.example.demo.models.FormaPagamento;
-import com.example.demo.models.Pagamento;
 import com.example.demo.repository.FormaPagPagamentoRepository;
 
 @Controller 
@@ -24,8 +20,7 @@ public class FormaPagPagamentoController {
 	@Autowired
 	FormaPagPagamentoRepository formaPagPagamentoRepository;
 	@PostMapping(value="/cadastrar") 
-	public @ResponseBody String cadastrar (@RequestParam Pagamento idPagamento,@RequestParam  FormaPagamento idformaPagamento ) {
-		FormaPagPagamento formaPagPagamento = new FormaPagPagamento(0,idformaPagamento,idPagamento);
+	public @ResponseBody String cadastrar (FormaPagPagamento formaPagPagamento ) {
 		formaPagPagamentoRepository.save(formaPagPagamento);
 		return "Cadastrado com sucesso";
 	}

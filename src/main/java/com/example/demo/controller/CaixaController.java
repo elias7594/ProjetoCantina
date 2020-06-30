@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.example.demo.enums.StatusCaixa;
 import com.example.demo.models.Caixa;
 import com.example.demo.repository.CaixaRepository;
 
@@ -22,8 +24,7 @@ public class CaixaController {
 	
 	@PostMapping(value="/cadastrar") 
 	public @ResponseBody String cadastrar(Caixa caixa) {
-		Caixa caixaC = new Caixa(0,caixa.getValorAbertura(),0.0,caixa.getData(),1);
-		caixaRepository.save(caixaC);
+		caixaRepository.save(caixa);
 		return "Cadastrado com sucesso";
 	}
 	
@@ -65,7 +66,7 @@ public class CaixaController {
 	}
 	
 	@PostMapping(value="/abrirCaixaFechar") 
-	public @ResponseBody String abrirCaixaFechar (@RequestParam int id, int status) {
+	public @ResponseBody String abrirCaixaFechar (@RequestParam int id, StatusCaixa status) {
 		Caixa caixa =  caixaRepository.findById(id).get();
 		caixa.setStatus(status);
 		caixaRepository.save(caixa);

@@ -1,11 +1,14 @@
 package com.example.demo.models;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import com.example.demo.enums.TipoOper;
 
 @Entity
 public class ItemCaixa {
@@ -18,12 +21,13 @@ public class ItemCaixa {
 	@ManyToOne
 	@JoinColumn(name = "idCaixa", referencedColumnName = "id")
 	private Caixa idCaixa;
-	private Integer tipoOper;
+	@Enumerated(value = EnumType.STRING)
+	private TipoOper tipoOper;
 	private Double valor;
 	private String descricao;
 
 	public ItemCaixa() {}
-	public ItemCaixa(Integer id, Pedido idPedido, Caixa idCaixa, Integer tipoOper, Double valor, String descricao) {
+	public ItemCaixa(Integer id, Pedido idPedido, Caixa idCaixa, TipoOper tipoOper, Double valor, String descricao) {
 		super();
 		this.id = id;
 		this.idPedido = idPedido;
@@ -41,7 +45,7 @@ public class ItemCaixa {
 	public Caixa getIdCaixa() {
 		return idCaixa;
 	}
-	public Integer getTipoOper() {
+	public TipoOper getTipoOper() {
 		return tipoOper;
 	}
 	public Double getValor() {
@@ -59,7 +63,7 @@ public class ItemCaixa {
 	public void setIdCaixa(Caixa idCaixa) {
 		this.idCaixa = idCaixa;
 	}
-	public void setTipoOper(Integer tipoOper) {
+	public void setTipoOper(TipoOper tipoOper) {
 		this.tipoOper = tipoOper;
 	}
 	public void setValor(Double valor) {

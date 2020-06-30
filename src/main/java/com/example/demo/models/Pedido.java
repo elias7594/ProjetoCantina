@@ -5,12 +5,16 @@ package com.example.demo.models;
 import java.sql.Date;
 import java.sql.Time;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.example.demo.enums.StatusPedido;
 @Entity
 public class Pedido {
 	@Id
@@ -22,14 +26,15 @@ public class Pedido {
 	@ManyToOne
 	@JoinColumn(name = "idPagamento", referencedColumnName = "id")
 	private Pagamento idPagamento;
-	private Integer status;
+	@Enumerated(value = EnumType.STRING)
+	private StatusPedido status;
 	private Time hora;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date data;
 	private Integer lugar;
 	public Pedido() {}
 	
-	public Pedido(Integer id, Usuario idUsuario, Pagamento idPagamento, Integer status, Time hora, Date data,
+	public Pedido(Integer id, Usuario idUsuario, Pagamento idPagamento, StatusPedido status, Time hora, Date data,
 			Integer lugar) {
 		super();
 		this.id = id;
@@ -64,10 +69,10 @@ public class Pedido {
 			this.idPagamento = idPagamento;
 		}
 	}
-	public Integer getStatus() {
+	public StatusPedido getStatus() {
 		return status;
 	}
-	public void setStatus(Integer status) {
+	public void setStatus(StatusPedido status) {
 		if (status != null) {
 			this.status = status;
 		}

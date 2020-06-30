@@ -23,8 +23,7 @@ public class PagamentoController {
 	private PagamentoRepository pagamentoRepository;
 	
 	@PostMapping(value="/cadastrar") 
-	public @ResponseBody String cadastrar(@RequestParam Double valor) {
-		Pagamento pagamento = new Pagamento(0,  valor);
+	public @ResponseBody String cadastrar(Pagamento pagamento) {
 		pagamentoRepository.save(pagamento);
 		return "Cadastrado com sucesso";
 	}

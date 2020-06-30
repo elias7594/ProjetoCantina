@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.example.demo.models.Pedido;
 import com.example.demo.models.PedidoProduto;
-import com.example.demo.models.Produto;
 import com.example.demo.repository.PedidoProdutoRepository;
 
 @Controller
@@ -24,8 +21,7 @@ public class PedidoProdutoController {
 	@Autowired
 	private PedidoProdutoRepository pedidoProdutoRepository ;
 	@GetMapping(path="/cadastrar")
-	public @ResponseBody String cadastrar (@RequestParam  Produto idProduto,@RequestParam Pedido idPedido) {
-		PedidoProduto pedidoProduto = new PedidoProduto(0,idPedido,idProduto);
+	public @ResponseBody String cadastrar (PedidoProduto pedidoProduto ) {
 		pedidoProdutoRepository.save(pedidoProduto);
 		return "Cadastrado com sucesso";
 	}

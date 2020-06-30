@@ -20,8 +20,7 @@ public class CategoriaController {
 	private CategoriaRepository categoriaRepository;
 	
 	@PostMapping(value="/cadastrar") 
-	public @ResponseBody String cadastrar(@RequestParam String nome) {
-		Categoria categoria = new Categoria(0,  nome);
+	public @ResponseBody String cadastrar( Categoria categoria) {
 		categoriaRepository.save(categoria);
 		return "Salvo";
 	}
