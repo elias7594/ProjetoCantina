@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.example.demo.models.Categoria;
 import com.example.demo.models.Produto;
-import com.example.demo.models.UnidadeMedida;
 import com.example.demo.repository.ProdutoRepository;
 
 @Controller
@@ -63,6 +61,6 @@ public class ProdutoController {
 					return Record;
 				});
 		
-	    return "Salvo";
+	    return "Editado com sucesso";
 	}
 }

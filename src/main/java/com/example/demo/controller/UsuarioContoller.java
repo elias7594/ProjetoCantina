@@ -4,51 +4,53 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.models.Usuario;
 import com.example.demo.repository.UsuarioRepository;
 
-@Controller 
-@RequestMapping(path="/usuarios", method = RequestMethod.GET ) 
+
+@RestController
+@RequestMapping(path="/usuarios" ) 
 public class UsuarioContoller {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
-	@PostMapping(value="/cadastrar") 
-	public @ResponseBody String cadastrar (Usuario usuario) {
+	@CrossOrigin
+	@PostMapping(value="/") 
+	public @ResponseBody String cadastrar (@RequestBody Usuario usuario) {
 	    usuarioRepository.save(usuario);
 	    return "Cadastrado com sucesso";
 	}
-	
-	@GetMapping(path="/listarTodos")
+	@CrossOrigin
+	@GetMapping(path="/")
 	public @ResponseBody Iterable<Usuario> ListarTodos() {
 	    return usuarioRepository.findAll();
 	}
 	
-	@GetMapping(path="/existePorId")
-	public @ResponseBody boolean existePorId(@RequestParam Integer id) {
-	    return usuarioRepository.existsById(id);
-	}
-	
-	@GetMapping(path="/busca")
+
+	@GetMapping(path="/{id}")
 	public @ResponseBody Optional<Usuario> buscar(@RequestParam Integer id) {
 	    return usuarioRepository.findById(id);
 	}
 	
-	@GetMapping(path="/deletar")
-	public @ResponseBody String deletar(@RequestParam Integer id) {
+	@CrossOrigin
+	@DeleteMapping("/{id}")
+	public @ResponseBody String deletar(@PathVariable("id") Integer id) {
 	    usuarioRepository.deleteById(id);
 	    return "Usuario deletado";
 	}
 	
-	@PostMapping(value="/editar") 
+	@PostMapping(value="/{id}") 
 	public @ResponseBody String editar (@RequestParam Integer id, Usuario user) {
 		usuarioRepository.findById(id)
 				.map( (Function<? super Usuario, ? extends Usuario>) Record->{
